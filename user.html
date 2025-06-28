@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Panel de Usuario</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #eef2f5;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .dashboard {
+      background-color: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      width: 350px;
+      text-align: center;
+    }
+    .dashboard h2 {
+      margin-bottom: 10px;
+    }
+    .saldo {
+      font-size: 1.5rem;
+      color: #2ecc71;
+      margin-bottom: 20px;
+    }
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 8px;
+      background-color: #3498db;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .btn:hover {
+      background-color: #2980b9;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="dashboard">
+    <h2>¡Bienvenido, <span id="usuario">Usuario</span>!</h2>
+    <div class="saldo">Saldo disponible: $<span id="saldo">5000</span></div>
+
+    <button class="btn" onclick="ingresarDinero()">Ingresar Dinero</button>
+    <button class="btn" onclick="transferirDinero()">Transferir Dinero</button>
+    <button class="btn" onclick="verMovimientos()">Ver Movimientos</button>
+  </div>
+
+  <script>
+    let saldo = 5000;
+    const usuario = "admin"; // Este dato se podría pasar desde el login
+
+    document.getElementById("usuario").textContent = usuario;
+    document.getElementById("saldo").textContent = saldo;
+
+    function actualizarSaldo() {
+      document.getElementById("saldo").textContent = saldo.toFixed(2);
+    }
+
+    function ingresarDinero() {
+      const monto = parseFloat(prompt("¿Cuánto dinero querés ingresar?"));
+      if (!isNaN(monto) && monto > 0) {
+        saldo += monto;
+        alert("Dinero ingresado correctamente.");
+        actualizarSaldo();
+      } else {
+        alert("Monto inválido.");
+      }
+    }
+
+    function transferirDinero() {
+      const monto = parseFloat(prompt("¿Cuánto dinero querés transferir?"));
+      if (!isNaN(monto) && monto > 0) {
+        if (monto <= saldo) {
+          saldo -= monto;
+          alert("Transferencia realizada con éxito.");
+          actualizarSaldo();
+        } else {
+          alert("No tenés saldo suficiente.");
+        }
+      } else {
+        alert("Monto inválido.");
+      }
+    }
+
+    function verMovimientos() {
+      alert("Funcionalidad de movimientos aún no implementada.");
+      // Aquí podrías abrir otra pantalla, tabla o modal.
+    }
+  </script>
+
+</body>
+</html>
